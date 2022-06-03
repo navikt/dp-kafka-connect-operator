@@ -35,5 +35,5 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/nais.yaml,.nais/role.yaml,.nais/role-binding.yaml
+          RESOURCE: .nais/nais.yaml,.nais/role.yaml,.nais/role-binding.yaml,.nais/network-policy.yaml
           PRINT_PAYLOAD: true
