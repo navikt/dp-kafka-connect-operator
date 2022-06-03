@@ -20,7 +20,6 @@ spec:
   prometheus:
     enabled: true
     path: /metrics
-    port: "9115"
   resources:
     limits:
       cpu: 400m
