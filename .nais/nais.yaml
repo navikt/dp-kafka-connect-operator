@@ -1,0 +1,33 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: dp-kafka-connect-operator
+  namespace: teamdagpenger
+  labels:
+    team: teamdagpenger
+spec:
+  image: {{image}}
+  port: 9115
+  liveness:
+    path: "/isalive"
+    initialDelay: 1
+  readiness:
+    path: "/isready"
+    initialDelay: 1
+  replicas:
+    min: 1
+    max: 2
+  prometheus:
+    enabled: true
+    path: /metrics
+    port: 9115
+  resources:
+    limits:
+      cpu: 400m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+  env:
+    - name: PROVIDER
+      value: azure
