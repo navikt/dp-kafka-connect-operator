@@ -8,7 +8,8 @@ kubernetes:
   kind: Pod
   executeHookOnEvent: ["Added"]
   namespace:
-    nameSelector: ["teamdagpenger"]
+    nameSelector:
+      matchNames: ["teamdagpenger"]
 EOF
 else
   podName=$(jq -r .[0].object.metadata.name $BINDING_CONTEXT_PATH)
