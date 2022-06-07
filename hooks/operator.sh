@@ -82,8 +82,8 @@ function apply_connector() {
   local url="$BASE_URL"
   local curl_user_opt
 
-  mkdir -p /tmp/operator
-  cd /tmp/operator
+  local tmpdir=$(mktemp -d) || exit 1
+  cd $tmpdir
 
   trap 'rm -f "$tmpfile"' RETURN
   local tmpfile=$(mktemp) || exit 1
