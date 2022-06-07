@@ -28,6 +28,8 @@ spec:
       cpu: 50m
       memory: 128Mi
   env:
+    - name: DEBUG
+      value: "true"
     - name: DEBUG_UNIX_SOCKET
       value: /tmp/shell-operator/debug.socket
     - name: BASE_URL
