@@ -33,7 +33,7 @@ spec:
     - name: DEBUG_UNIX_SOCKET
       value: /tmp/shell-operator/debug.socket
     - name: BASE_URL
-      value: http://dp-kafka-connect:8083/
+      value: http://dp-kafka-connect:8083
   accessPolicy:
     outbound:
       rules:
