@@ -82,6 +82,8 @@ function apply_connector() {
   local url="$BASE_URL"
   local curl_user_opt
 
+  mkdir -p /tmp/operator
+  cd /tmp/operator
 
   trap 'rm -f "$tmpfile"' RETURN
   local tmpfile=$(mktemp) || exit 1
@@ -125,19 +127,6 @@ function apply_connector() {
     echo "$desired_connector_config" > "$connector_name.json"
     curl -s -S -XPOST -H "Content-Type: application/json" --data "$desired_connector_config" $curl_user_opt "$url/connectors" >> debug.log 2>&1
   }
-}
-
-function get_cc_kafka_cluster_connect_url() {
-  local cluster_configmap_name
-  local "${@}"
-
-  local cluster_info=$(kubectl get configmap/"$cluster_configmap_name" -o json)
-  local env_id=$(echo $cluster_info | jq -r '.metadata.labels.environment_id')
-  local cluster_id=$(echo $cluster_info | jq -r '.metadata.labels.resource_id')
-  echo "https://api.confluent.cloud/connect/v1/environments/$env_id/clusters/$cluster_id"
-}
-function get_cc_kafka_cluster_connect_user_arg() {
-  echo "$CONNECT_REST_KEY":"$CONNECT_REST_SECRET"
 }
 
 hook::run() {
