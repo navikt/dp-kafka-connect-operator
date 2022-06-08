@@ -143,18 +143,18 @@ hook::run() {
     # In the Syncronization phase, we maybe receive many object instances,
     # so we pull out each one and process them independently
     for OBJECT_ENCODED in $(jq -c -r '.[0].objects | .[] | @base64' "$BINDING_CONTEXT_PATH"); do
-
       local object=$(echo "${OBJECT_ENCODED}" | base64 -d)
       local enabled=$(echo $object | jq -r -c '.object.metadata.labels.enabled')
       local keys=$(echo $object | jq -c -r '.object.data | keys | .[]')
 
       for KEY in $keys; do
-
         local config=$(echo $object | jq -c -r ".object.data | select(has(\"$KEY\")) | .\"$KEY\"")
 
         if [ "$enabled" == "true" ]; then
+          echo "Enabled event observed: $KEY"
           apply_connector config="$config"
         else
+          echo "Disabled event observed: $KEY"
           delete_connector config="$config"
         fi
 
