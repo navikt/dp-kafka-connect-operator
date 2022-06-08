@@ -91,7 +91,6 @@ function apply_connector() {
   local connector_exists_result=$(curl -o /dev/null -s -S -I -w "%{http_code}" -XGET -H "Accpet: application/json" $curl_user_opt "$url/connectors/$connector_name")
 
   [[ "$connector_exists_result" == "200" ]] && {
-
     # If the conector already exists, we need to potentially update the configuration instead of POSTing a new connector
     # First we use `jq` to detect any changes in the desired config in the ConfigMap vs what's returned from the connector http endpoint
     echo "checking current connector config $connector_name on $url"
@@ -110,9 +109,7 @@ function apply_connector() {
         echo "Error updating exisiting connector config: $connector_name: $?"
       }
     fi
-
   } || {
-
     echo "creating new connector: $connector_name on $url"
     echo "$desired_connector_config" > "$connector_name.json"
     curl -s -S -XPOST -H "Content-Type: application/json" --data "$desired_connector_config" $curl_user_opt "$url/connectors" >> debug.log 2>&1
@@ -156,9 +153,7 @@ hook::run() {
           echo "Disabled event observed: $KEY"
           delete_connector config="$config"
         fi
-
       done
-
     done
 
   elif [[ "$type" == "Event" ]]; then
@@ -180,7 +175,6 @@ hook::run() {
         delete_connector config="$config"
       fi
     fi
-
   fi
 
   if [ "${DEBUG}" == "true" ]; then set +x; fi
