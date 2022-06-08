@@ -75,9 +75,6 @@ function apply_connector() {
   local url="$BASE_URL"
   local curl_user_opt
 
-  local tmpdir=$(mktemp -d) || exit 1
-  cd $tmpdir
-
   trap 'rm -f "$tmpfile"' RETURN
   local tmpfile=$(mktemp) || exit 1
   echo "$config" > $tmpfile
@@ -125,6 +122,9 @@ function apply_connector() {
 hook::run() {
   if [ "${DEBUG}" == "true" ]; then set -x; fi
   load_configs
+
+  # Change working directory to tmp-folder with write permissions
+  cd $(mktemp -d) || exit 1
 
   # shell-operator gives us a wrapper around the resource we are monitoring
   # in a file located at the path of $BINDING_CONTEXT_PATH
