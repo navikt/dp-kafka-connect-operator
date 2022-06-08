@@ -139,7 +139,6 @@ hook::run() {
   # A "Syncronization" Type event indicates we need to syncronize with the
   # current state of the resource, otherwise we'll get an "Event" type event.
   if [[ "$type" == "Synchronization" ]]; then
-
     # In the Syncronization phase, we maybe receive many object instances,
     # so we pull out each one and process them independently
     for OBJECT_ENCODED in $(jq -c -r '.[0].objects | .[] | @base64' "$BINDING_CONTEXT_PATH"); do
@@ -177,6 +176,8 @@ hook::run() {
       echo "New/Updated event observed: $key"
       if [ "$enabled" == "true" ]; then
         apply_connector config="$config"
+      else
+        delete_connector config="$config"
       fi
     fi
 
