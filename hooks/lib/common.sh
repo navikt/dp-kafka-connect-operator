@@ -17,6 +17,17 @@ kubernetes:
   namespace:
     nameSelector:
       matchNames: ["teamdagpenger"]
+- name: ConnectStatusMonitor
+  apiVersion: v1
+  kind: ConfigMap
+  executeHookOnEvent: ["Added","Deleted","Modified"]
+  jqFilter: ".metadata.labels.enabled"
+  labelSelector:
+    matchLabels:
+      destination: connect
+  namespace:
+    nameSelector:
+      matchNames: ["teamdagpenger"]
 EOF
 }
 
