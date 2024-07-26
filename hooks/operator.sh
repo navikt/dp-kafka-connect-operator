@@ -10,7 +10,7 @@ BASE_URL=${BASE_URL:-http://connect}
 #
 # Currently sets the global variable JQ_ARGS_FROM_CONFIG_FILE as it's "output"
 function load_configs() {
-  rm "/etc/config/connect-operator/connect-operator.properties"
+  rm -f "/etc/config/connect-operator/connect-operator.properties"
 
   for f in /etc/config/connect-operator/*.properties; do (cat "${f}"; echo) >> /etc/config/connect-operator/connect-operator.properties; done
 
