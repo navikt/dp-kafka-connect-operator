@@ -28,6 +28,7 @@ jobs:
     needs: [ build ]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: prod-gcp
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
@@ -42,6 +43,7 @@ jobs:
     needs: [ build ]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: prod-gcp
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
