@@ -5,6 +5,7 @@ metadata:
   namespace: teamdagpenger
   labels:
     team: teamdagpenger
+    apiserver-access: "enabled"
 spec:
   image: {{image}}
   port: 9115
