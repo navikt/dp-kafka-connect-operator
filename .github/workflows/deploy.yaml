@@ -14,7 +14,7 @@ jobs:
     name: Build and Publish Docker image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: docker-build-push
         uses: nais/docker-build-push@v0
         id: docker-build-push
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod-gcp
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod-gcp
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
