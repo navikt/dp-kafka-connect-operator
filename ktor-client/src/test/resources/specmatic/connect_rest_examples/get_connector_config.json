@@ -1,0 +1,20 @@
+{
+  "partial": {
+    "http-request": {
+      "method": "PUT",
+      "path": "/connectors/(name:string)/config",
+      "body": {
+      }
+    },
+    "http-response": {
+      "status": 200,
+      "body": {
+        "name": "$name",
+        "config": {
+          "connector.class": "org.apache.kafka.connect.mirror.MirrorSourceConnector",
+          "source.cluster.alias": "source-cluster"
+        }
+      }
+    }
+  }
+}

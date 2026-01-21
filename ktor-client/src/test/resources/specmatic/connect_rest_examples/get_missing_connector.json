@@ -1,0 +1,13 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/connectors/missing"
+  },
+  "http-response": {
+    "status": 404,
+    "body": {
+      "config": {},
+      "name": "missing"
+    }
+  }
+}

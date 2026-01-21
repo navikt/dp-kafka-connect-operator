@@ -1,0 +1,26 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/connectors",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "new-connector",
+      "config": {
+        "connector.class": "org.apache.kafka.connect.mirror.MirrorSourceConnector",
+        "source.cluster.alias": "source-cluster"
+      }
+    }
+  },
+  "http-response": {
+    "status": 201,
+    "body": {
+      "name": "new-connector",
+      "config": {
+        "connector.class": "org.apache.kafka.connect.mirror.MirrorSourceConnector",
+        "source.cluster.alias": "source-cluster"
+      }
+    }
+  }
+}

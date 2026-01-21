@@ -2,13 +2,15 @@
 
 Lar apper konfigurere Connectors i Kafka-Connect via Kubernetes sine ConfigMaps.
 
-Bruker [shell-operator](https://github.com/flant/shell-operator) for å lytte på ConfigMaps som inneholder
-konfigurasjon for Connectors og sørger for å opprette, oppdatere, og slette Connectors.
+Lytter på ConfigMaps som inneholder konfigurasjon for Connectors og sørger for å opprette,
+oppdatere, og slette Connectors.
 
 ## Eksempel på en Connector i ConfigMap
 
 Dette er et eksempel på en connector. Operatoren fanger opp alle ConfigMaps som har `destination: connect` som label.
 Flagget `enabled` kan brukes til å fort skru av/på en connector.
+
+Et ConfigMap kan inneholde flere connector-konfigurasjoner, hver i sin egen nøkkel.
 
 ```yaml
 apiVersion: v1

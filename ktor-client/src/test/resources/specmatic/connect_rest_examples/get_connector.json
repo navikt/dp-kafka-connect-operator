@@ -1,0 +1,16 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/connectors/(name:string)"
+  },
+  "http-response": {
+    "status": 200,
+    "body": {
+      "name": "$name",
+      "config": {
+        "connector.class": "org.apache.kafka.connect.mirror.MirrorSourceConnector",
+        "source.cluster.alias": "source-cluster"
+      }
+    }
+  }
+}

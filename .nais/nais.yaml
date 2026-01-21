@@ -8,20 +8,18 @@ metadata:
     apiserver-access: "enabled"
 spec:
   image: "{{image}}"
-  port: 9115
+  port: 8080
   liveness:
-    path: "/metrics"
-    initialDelay: 1
+    path: /internal/isalive
   readiness:
-    path: "/metrics"
-    initialDelay: 1
+    path: /internal/isready
   replicas:
     disableAutoScaling: true
     min: 1
     max: 1
   prometheus:
     enabled: true
-    path: /metrics
+    path: /internal/metrics
   resources:
     limits:
       memory: 256Mi
@@ -29,10 +27,6 @@ spec:
       cpu: 50m
       memory: 128Mi
   env:
-    - name: DEBUG
-      value: "false"
-    - name: DEBUG_UNIX_SOCKET
-      value: /tmp/shell-operator/debug.socket
     - name: BASE_URL
       value: http://dp-kafka-connect
   accessPolicy:

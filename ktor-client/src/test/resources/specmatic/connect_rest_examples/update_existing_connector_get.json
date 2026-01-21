@@ -1,0 +1,23 @@
+{
+  "http-request": {
+    "method": "PUT",
+    "path": "/connectors/existing/config",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "connector.class": "org.apache.kafka.connect.mirror.MirrorSourceConnector",
+      "source.cluster.alias": "updated-cluster"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "body": {
+      "name": "existing",
+      "config": {
+        "connector.class": "org.apache.kafka.connect.mirror.MirrorSourceConnector",
+        "source.cluster.alias": "updated-cluster"
+      }
+    }
+  }
+}

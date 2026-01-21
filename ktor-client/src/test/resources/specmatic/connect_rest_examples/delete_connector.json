@@ -1,0 +1,13 @@
+{
+  "http-request": {
+    "method": "DELETE",
+    "path": "/connectors/to-delete"
+  },
+  "http-response": {
+    "status": 204,
+    "body": {
+      "error_code": 204,
+      "message": "No Content"
+    }
+  }
+}

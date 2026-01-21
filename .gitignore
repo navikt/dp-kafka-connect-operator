@@ -1,3 +1,9 @@
 .idea
 hooks-pod
 dp-kafka-connect-operator.iml
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
