@@ -62,7 +62,7 @@ jobs:
   deploy-dev:
     name: Deploy to dev
     needs: [ build ]
-    if: github.ref == 'refs/heads/main'
+    #if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: dev-gcp
     permissions:
@@ -74,7 +74,7 @@ jobs:
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/nais.yaml,.nais/k8s-access.yaml
-          VAR: image=${{ needs.build.outputs.image }}
+          WORKLOAD_IMAGE: ${{ needs.build.outputs.image }}
           PRINT_PAYLOAD: true
 
   deploy-prod:
@@ -92,5 +92,5 @@ jobs:
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/nais.yaml,.nais/k8s-access.yaml
-          VAR: image=${{ needs.build.outputs.image }}
+          WORKLOAD_IMAGE: ${{ needs.build.outputs.image }}
           PRINT_PAYLOAD: true

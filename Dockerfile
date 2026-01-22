@@ -1,6 +1,6 @@
-FROM flant/shell-operator:v1.6.2
+FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/jre:openjdk-24
+ENV LANG='nb_NO.UTF-8' LANGUAGE='nb_NO:nb' LC_ALL='nb:NO.UTF-8' TZ="Europe/Oslo"
 
-RUN apk --no-cache add curl
-#RUN wget https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubectl -O /bin/kubectl && chmod +x /bin/kubectl
+COPY build/install/*/lib /app/lib
 
-ADD hooks /hooks
+ENTRYPOINT ["java", "-cp", "/app/lib/*", "no.nav.dagpenger.kafka.connect.operator.MainKt"]
