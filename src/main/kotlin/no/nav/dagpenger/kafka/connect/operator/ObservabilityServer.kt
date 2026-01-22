@@ -13,6 +13,7 @@ import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.metrics.micrometer.MicrometerMetrics
 import io.ktor.server.plugins.calllogging.CallLogging
+import io.ktor.server.request.path
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
@@ -32,7 +33,20 @@ class ObservabilityServer(
                 registry = meterRegistry
             }
 
-            install(CallLogging) {}
+            install(CallLogging) {
+                disableDefaultColors()
+                val ignoredPaths =
+                    setOf(
+                        // "/internal/metrics",
+                        "/internal/isalive",
+                        "/internal/isready",
+                    )
+                filter { call ->
+                    ignoredPaths.none { ignoredPath ->
+                        call.request.path().startsWith(ignoredPath)
+                    }
+                }
+            }
 
             routing {
                 get("/internal/metrics") {
