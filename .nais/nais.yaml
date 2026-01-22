@@ -32,6 +32,8 @@ spec:
     outbound:
       rules:
         - application: dp-kafka-connect
+        - application: logging
+          namespace: nais-system
   observability:
     logging:
       destinations:
