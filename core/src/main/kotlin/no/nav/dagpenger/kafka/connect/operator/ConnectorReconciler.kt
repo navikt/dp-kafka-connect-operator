@@ -3,7 +3,6 @@ package no.nav.dagpenger.kafka.connect.operator
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import no.nav.dagpenger.kafka.connect.operator.client.KafkaConnectClient
 import no.nav.dagpenger.kafka.connect.operator.client.OperationResult
@@ -14,7 +13,7 @@ class ConnectorReconciler(
     private val kafkaConnect: KafkaConnectClient,
     private val metrics: OperatorMetrics? = null,
 ) {
-    fun start(scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)) =
+    fun start(scope: CoroutineScope = CoroutineScope(Dispatchers.Default)) =
         scope.launch {
             logger.info { "ConnectorReconciler started, listening for events" }
             source.events().collect { event ->
@@ -61,22 +60,30 @@ class ConnectorReconciler(
                         metrics?.recordConnectorCreated()
                         metrics?.recordManagedConnector()
                     }
-                    EventType.UPDATED -> metrics?.recordConnectorUpdated()
-                    EventType.DELETED -> metrics?.recordConnectorDeleted()
+
+                    EventType.UPDATED -> {
+                        metrics?.recordConnectorUpdated()
+                    }
+
+                    EventType.DELETED -> {
+                        metrics?.recordConnectorDeleted()
+                    }
                 }
                 logger.info { "Operation completed successfully: connector=$connectorName, result=Success" }
             }
 
-            OperationResult.Unchanged ->
+            OperationResult.Unchanged -> {
                 logger.info { "No changes needed: connector=$connectorName, result=Unchanged" }
+            }
 
             is OperationResult.Rejected -> {
                 metrics?.recordOperationRejected()
                 logger.error { "Configuration rejected: connector=$connectorName, reason=${result.reason}" }
             }
 
-            is OperationResult.TemporaryFailure ->
+            is OperationResult.TemporaryFailure -> {
                 logger.warn { "Temporary failure (will retry): connector=$connectorName, reason=${result.reason}" }
+            }
         }
     }
 

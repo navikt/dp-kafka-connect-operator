@@ -3,6 +3,7 @@ package no.nav.dagpenger.kafka.connect.operator
 import io.fabric8.kubernetes.client.KubernetesClientBuilder
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.runBlocking
+import kotlin.system.exitProcess
 
 private val logger = KotlinLogging.logger {}
 
@@ -34,12 +35,13 @@ fun main() {
     )
 
     runBlocking {
+        logger.info { "Operator started successfully, watching for ConfigMap changes" }
         try {
-            logger.info { "Operator started successfully, watching for ConfigMap changes" }
             reconciler.start(this).join()
         } catch (e: Exception) {
             val rootCause = generateSequence<Throwable>(e) { it.cause }.last()
             logger.error(rootCause) { "Uncaught exception: ${rootCause.message}" }
+            exitProcess(1)
         }
     }
 }
