@@ -8,6 +8,8 @@ interface KafkaConnectClient {
     suspend fun delete(name: String): OperationResult
 
     suspend fun getConnector(name: String): KafkaConnector?
+
+    suspend fun listConnectors(): List<String>
 }
 
 sealed interface OperationResult {

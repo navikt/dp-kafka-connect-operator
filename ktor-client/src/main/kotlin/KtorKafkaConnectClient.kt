@@ -41,6 +41,23 @@ class KtorKafkaConnectClient(
             }
         }
 
+    override suspend fun listConnectors(): List<String> {
+        logger.debug { "Listing all connectors" }
+        val response = client.get("/connectors")
+        return when (response.status) {
+            HttpStatusCode.OK -> {
+                val connectors: List<String> = response.body()
+                logger.debug { "Found ${connectors.size} connector(s)" }
+                connectors
+            }
+
+            else -> {
+                logger.error { "Failed to list connectors: status=${response.status}" }
+                throw IllegalStateException("Unexpected response status: ${response.status}, message: ${response.bodyAsText()}")
+            }
+        }
+    }
+
     override suspend fun getConnector(name: String): KafkaConnector? {
         logger.debug { "Fetching connector: name=$name" }
         val response = client.get("/connectors/$name")

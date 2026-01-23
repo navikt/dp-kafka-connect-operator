@@ -30,7 +30,7 @@ class KubernetesConfigMapSource(
                         metrics?.recordConfigMapEvent()
                         val configMapName = obj.metadata?.name
                         logger.info { "ConfigMap added: name=$configMapName" }
-                        runCatching { obj.toEvents() }
+                        runCatching { obj.toConnectors() }
                             .onSuccess { connectors ->
                                 logger.info { "Parsed ${connectors.size} connector(s) from ConfigMap: name=$configMapName" }
                                 connectors.forEach { trySend(KafkaConnectorEvent(EventType.ADDED, it)) }
@@ -47,7 +47,7 @@ class KubernetesConfigMapSource(
                         metrics?.recordConfigMapEvent()
                         val configMapName = newObj.metadata?.name
                         logger.info { "ConfigMap updated: name=$configMapName" }
-                        runCatching { newObj.toEvents() }
+                        runCatching { newObj.toConnectors() }
                             .onSuccess { connectors ->
                                 logger.info { "Parsed ${connectors.size} connector(s) from updated ConfigMap: name=$configMapName" }
                                 connectors.forEach { trySend(KafkaConnectorEvent(EventType.UPDATED, it)) }
@@ -64,7 +64,7 @@ class KubernetesConfigMapSource(
                         metrics?.recordConfigMapEvent()
                         val configMapName = obj.metadata?.name
                         logger.info { "ConfigMap deleted: name=$configMapName, finalStateUnknown=$deletedFinalStateUnknown" }
-                        runCatching { obj.toEvents() }
+                        runCatching { obj.toConnectors() }
                             .onSuccess { connectors ->
                                 logger.info { "Parsed ${connectors.size} connector(s) from deleted ConfigMap: name=$configMapName" }
                                 connectors.forEach {
@@ -100,7 +100,22 @@ class KubernetesConfigMapSource(
         client.close()
     }
 
-    private fun ConfigMap.toEvents(): List<KafkaConnector> = data?.map { (_, config) -> parseConnectorConfig(config) } ?: emptyList()
+    override fun getCurrentConnectors(): List<KafkaConnector> {
+        logger.info { "Fetching current connectors from ConfigMaps: namespace=$namespace" }
+        val configMaps =
+            client
+                .configMaps()
+                .inNamespace(namespace)
+                .withLabel("destination", "connect")
+                .list()
+                .items
+
+        val connectors = configMaps.flatMap { it.toConnectors() }
+        logger.info { "Found ${connectors.size} connectors in ${configMaps.size} ConfigMaps" }
+        return connectors
+    }
+
+    private fun ConfigMap.toConnectors(): List<KafkaConnector> = data?.map { (_, config) -> parseConnectorConfig(config) } ?: emptyList()
 
     private fun parseConnectorConfig(json: String): KafkaConnector {
         val parsed: ConnectorJson = objectMapper.readValue(json)

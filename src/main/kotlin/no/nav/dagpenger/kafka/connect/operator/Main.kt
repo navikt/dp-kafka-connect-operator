@@ -20,7 +20,7 @@ fun main() {
 
     val connectorClient = KtorKafkaConnectClient(baseUrl)
     val source = KubernetesConfigMapSource(KubernetesClientBuilder().build(), namespace, metrics)
-    val reconciler = ConnectorReconciler(source, connectorClient, metrics)
+    val operator = Operator(source, connectorClient, metrics)
 
     observability.start()
 
@@ -35,9 +35,8 @@ fun main() {
     )
 
     runBlocking {
-        logger.info { "Operator started successfully, watching for ConfigMap changes" }
         try {
-            reconciler.start(this).join()
+            operator.start(this).join()
         } catch (e: Exception) {
             val rootCause = generateSequence<Throwable>(e) { it.cause }.last()
             logger.error(rootCause) { "Uncaught exception: ${rootCause.message}" }
