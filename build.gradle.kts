@@ -20,13 +20,13 @@ dependencies {
     implementation(libs.ktor.server.cio)
 
     // Micrometer with Prometheus
-    implementation("io.micrometer:micrometer-registry-prometheus:1.15.0")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.16.2")
 
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)
-    testImplementation("io.fabric8:kubernetes-server-mock:7.5.1")
-    testImplementation("org.testcontainers:testcontainers-junit-jupiter:2.0.2")
-    testImplementation("org.testcontainers:testcontainers:2.0.2")
+    testImplementation("io.fabric8:kubernetes-server-mock:7.5.2")
+    testImplementation("org.testcontainers:testcontainers-junit-jupiter:2.0.3")
+    testImplementation("org.testcontainers:testcontainers:2.0.3")
 }
 
 application {
