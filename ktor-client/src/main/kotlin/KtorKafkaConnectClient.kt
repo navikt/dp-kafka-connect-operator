@@ -1,6 +1,5 @@
 package no.nav.dagpenger.kafka.connect.operator
 
-import com.fasterxml.jackson.databind.DeserializationFeature
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -17,9 +16,11 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
-import io.ktor.serialization.jackson.jackson
+import io.ktor.serialization.jackson3.jackson
+import jdk.internal.org.jline.reader.impl.InputRC.configure
 import no.nav.dagpenger.kafka.connect.operator.client.KafkaConnectClient
 import no.nav.dagpenger.kafka.connect.operator.client.OperationResult
+import tools.jackson.databind.DeserializationFeature
 
 private val logger = KotlinLogging.logger {}
 

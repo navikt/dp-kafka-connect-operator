@@ -1,7 +1,5 @@
 package no.nav.dagpenger.kafka.connect.operator
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import io.fabric8.kubernetes.api.model.ConfigMap
 import io.fabric8.kubernetes.client.KubernetesClient
 import io.fabric8.kubernetes.client.informers.ResourceEventHandler
@@ -9,8 +7,9 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import no.nav.dagpenger.kafka.connect.operator.name
 import no.nav.dagpenger.kafka.connect.operator.source.ConnectorConfigSource
+import tools.jackson.module.kotlin.jacksonObjectMapper
+import tools.jackson.module.kotlin.readValue
 import kotlin.time.Duration.Companion.minutes
 
 class KubernetesConfigMapSource(
