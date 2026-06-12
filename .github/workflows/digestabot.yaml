@@ -15,7 +15,7 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v6.0.3 
-      - uses: navikt/digestabot@v1.1 
+      - uses: navikt/digestabot@v1.2 
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           team: teamdagpenger
