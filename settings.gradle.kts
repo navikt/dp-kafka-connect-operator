@@ -7,10 +7,7 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         create("libs") {
-            from("no.nav.dagpenger:dp-version-catalog:20260518.255.1a7fc0")
-
-            // Override version
-            version("ktor", "3.4.0")
+            from("no.nav.dagpenger:dp-version-catalog:20260715.264.218d60")
         }
     }
 }
