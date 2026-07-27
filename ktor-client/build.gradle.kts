@@ -3,7 +3,7 @@ import de.undercouch.gradle.tasks.download.Download
 plugins {
     id("common")
     `java-library`
-    id("de.undercouch.download") version "5.6.0"
+    id("de.undercouch.download") version "5.7.0"
 }
 
 dependencies {
