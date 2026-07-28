@@ -1,3 +1,5 @@
+import sun.jvmstat.monitor.MonitoredVmUtil.mainClass
+
 plugins {
     id("common")
     application
@@ -20,13 +22,13 @@ dependencies {
     implementation(libs.ktor.server.cio)
 
     // Micrometer with Prometheus
-    implementation("io.micrometer:micrometer-registry-prometheus:1.16.2")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.17.0")
 
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)
-    testImplementation("io.fabric8:kubernetes-server-mock:7.5.2")
-    testImplementation("org.testcontainers:testcontainers-junit-jupiter:2.0.3")
-    testImplementation("org.testcontainers:testcontainers:2.0.3")
+    testImplementation("io.fabric8:kubernetes-server-mock:7.8.0")
+    testImplementation("org.testcontainers:testcontainers-junit-jupiter:${libs.versions.testcontainer.get()}")
+    testImplementation(libs.testcontainer)
 }
 
 application {

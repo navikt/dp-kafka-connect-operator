@@ -15,8 +15,8 @@ dependencies {
 
     testImplementation(libs.kotest.assertions.core)
 
-    testImplementation("org.testcontainers:testcontainers-junit-jupiter:2.0.2")
-    testImplementation("org.testcontainers:testcontainers:2.0.2")
+    testImplementation("org.testcontainers:testcontainers-junit-jupiter:${libs.versions.testcontainer.get()}")
+    testImplementation(libs.testcontainer)
 
     testRuntimeOnly(libs.logback.classic)
 }
