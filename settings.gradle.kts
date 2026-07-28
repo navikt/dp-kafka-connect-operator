@@ -4,6 +4,7 @@ plugins {
 dependencyResolutionManagement {
     repositories {
         maven("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
+        mavenCentral()
     }
     versionCatalogs {
         create("libs") {
