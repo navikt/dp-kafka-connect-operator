@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     implementation(libs.kotlin.logging)
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
 
     api("io.micrometer:micrometer-core:1.17.0")
 
