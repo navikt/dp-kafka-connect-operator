@@ -14,6 +14,15 @@ rules:
       - get
       - watch
       - list
+  # Needed for leader election (Lease-based lock between replicas)
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - create
+      - update
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
