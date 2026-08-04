@@ -28,6 +28,7 @@ spec:
   env:
     - name: BASE_URL
       value: http://dp-kafka-connect
+  leaderElection: true
   accessPolicy:
     outbound:
       rules:
