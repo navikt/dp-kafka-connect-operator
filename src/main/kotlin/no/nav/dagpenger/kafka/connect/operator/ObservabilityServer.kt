@@ -1,7 +1,6 @@
 package no.nav.dagpenger.kafka.connect.operator
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationStarted
 import io.ktor.server.application.ApplicationStarting
 import io.ktor.server.application.ApplicationStopPreparing
@@ -27,15 +26,6 @@ class ObservabilityServer(
     private val port: Int = 8080,
 ) {
     val meterRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
-
-    // Reflects leadership status once leader election is wired in Main.kt.
-    // Standby replicas are ALIVE but not READY.
-    @Volatile
-    private var ready = true
-
-    fun setReady(value: Boolean) {
-        ready = value
-    }
 
     private val server =
         embeddedServer(CIO, port = port) {
@@ -68,11 +58,7 @@ class ObservabilityServer(
                 }
 
                 get("/internal/isready") {
-                    if (ready) {
-                        call.respondText("READY")
-                    } else {
-                        call.respondText(text = "STANDBY", status = HttpStatusCode.ServiceUnavailable)
-                    }
+                    call.respondText("READY")
                 }
             }
 
