@@ -78,7 +78,7 @@ jobs:
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: .nais/nais.yaml,.nais/k8s-access.yaml
+          RESOURCE: .nais/k8s-access.yaml,.nais/nais.yaml
           WORKLOAD_IMAGE: ${{ needs.build.outputs.image }}
           PRINT_PAYLOAD: true
 
@@ -96,6 +96,6 @@ jobs:
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
-          RESOURCE: .nais/nais.yaml,.nais/k8s-access.yaml
+          RESOURCE: .nais/k8s-access.yaml,.nais/nais.yaml
           WORKLOAD_IMAGE: ${{ needs.build.outputs.image }}
           PRINT_PAYLOAD: true
