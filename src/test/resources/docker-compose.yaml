@@ -22,7 +22,7 @@ services:
       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:7.3.0
+    image: confluentinc/cp-schema-registry:7.3.0@sha256:0cedb4383278a97059838cf2a954f9e7ac8e2c44fa31ce59edf466e2f344ed7c
     depends_on:
       - zookeeper
     environment:
@@ -32,14 +32,14 @@ services:
       SCHEMA_REGISTRY_DEBUG: "true"
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.3.2
+    image: confluentinc/cp-zookeeper:7.3.2@sha256:5971e800825ce61670124ff8c23f99ce42d95f6592bad4e9a9a77063f7a58af2
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zookeeper:2888:3888
 
   kafka:
-    image: confluentinc/cp-kafka:7.3.2
+    image: confluentinc/cp-kafka:7.3.2@sha256:724faab73e5a5d18a83f1f015a52dde0dfac32851dec62c5f0006d6125d45b99
     restart: on-failure
     environment:
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
