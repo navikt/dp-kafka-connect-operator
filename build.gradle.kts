@@ -22,7 +22,7 @@ dependencies {
     implementation(libs.ktor.server.cio)
 
     // Micrometer with Prometheus
-    implementation("io.micrometer:micrometer-registry-prometheus:1.17.0")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.17.1")
 
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)
