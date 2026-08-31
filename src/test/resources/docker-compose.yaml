@@ -22,7 +22,7 @@ services:
       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:7.3.0
+    image: confluentinc/cp-schema-registry:8.3.1@sha256:f0cfd047a839c1ace54d93b92e3459f0d03dc3b5c9db1192a2246fd79b4f44c4
     depends_on:
       - zookeeper
     environment:
