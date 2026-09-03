@@ -32,7 +32,7 @@ services:
       SCHEMA_REGISTRY_DEBUG: "true"
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.3.2
+    image: confluentinc/cp-zookeeper:7.3.2@sha256:5971e800825ce61670124ff8c23f99ce42d95f6592bad4e9a9a77063f7a58af2
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
