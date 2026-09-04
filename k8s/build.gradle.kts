@@ -10,7 +10,7 @@ dependencies {
 
     api("io.fabric8:kubernetes-client:7.8.0")
 
-    testImplementation("io.fabric8:kubernetes-server-mock:7.8.0")
+    testImplementation("io.fabric8:kubernetes-server-mock:7.9.0")
     testImplementation(libs.kotest.assertions.core)
     testRuntimeOnly(libs.logback.classic)
 }
