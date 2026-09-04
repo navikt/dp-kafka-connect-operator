@@ -26,7 +26,7 @@ dependencies {
 
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.mockk)
-    testImplementation("io.fabric8:kubernetes-server-mock:7.8.0")
+    testImplementation("io.fabric8:kubernetes-server-mock:7.9.0")
     testImplementation("org.testcontainers:testcontainers-junit-jupiter:${libs.versions.testcontainer.get()}")
     testImplementation(libs.testcontainer)
 }
