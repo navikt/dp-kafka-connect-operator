@@ -5,6 +5,9 @@ metadata:
   namespace: teamdagpenger
   labels:
     team: teamdagpenger
+    subteam: paragrafjegerene
+    okonomisystem: "false"
+    fagsystem: dagpenger
     apiserver-access: "enabled"
 spec:
   port: 8080
