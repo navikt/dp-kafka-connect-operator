@@ -3,9 +3,7 @@ name: Build and deploy
 on:
   workflow_dispatch:
   push:
-    branches-ignore:
-      - 'dependabot/**'
-      - 'renovate/**'
+    branches: main
 
 jobs:
   build:
